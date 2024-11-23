@@ -9,11 +9,14 @@
     font-size: larger;
     font-family: "roboto";
     margin: auto;
-    height: 100vh;
+    height:100vh;
     display: flex;
     flex-direction: column;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     width: 70%;
+    
+    
+    
     
 
   
@@ -42,6 +45,12 @@
         font-size: x-large;
     font-family: "roboto";
     font-weight: 600;
+    background-color: rgb(211, 212, 212);
+    height: auto;
+    width: 100%;
+    margin: auto;
+    
+    
     
     
     
@@ -52,10 +61,12 @@
 
 .main-article {
     li {
-        display: flex;
-        flex-direction: column;
+        display:contents;
+        margin: auto;
+        width: auto;
         align-items: center;
-        max-width: 100%;
+        
+        
         
         
     }
@@ -63,14 +74,17 @@
 
 .main-article {
     p {
-        text-align: center;
-        width: 50%;
-        margin-top: 0;
-        font-family: "roboto";
-        font-style: italic;
-        background-color: lightgray;
-        padding: 5rem;
-        font-size: larger;
+        
+        width:100%;
+        margin: auto;
+        font-family: "roboto", system-ui;
+        font-style:normal;
+        font-weight: 300;
+        font-size:  2rem;
+        height: auto;
+        
+        
+       
         
     }
 }
@@ -80,12 +94,102 @@
         color: blue;
         font-family: "Roboto";
         font-size: medium;
+        display: contents;
+        width: auto;
+        height: auto;
+        
+        
     }
 }
 
 
-ul {
-    list-style:square;
+
+
+
+.underCategory-image {
+    width: 40%;
+    display: flex;
+    margin: auto;
 }
 
 
+.article-item-0 {
+    display: flex;
+    
+}
+
+.article-item-0 p {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    gap: 60px;
+    
+   
+    
+}
+
+.article-item-0 li {
+    display: flex;
+    
+    
+}
+
+.article-item-0 h3 {
+    display: flex;
+    
+}
+
+
+
+
+
+.article-item-1 {
+    display: flex;
+    
+}
+
+.article-item-1 p {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    
+    gap: 60px;
+    
+}
+
+.article-item-1 li {
+    display: flex;
+    
+    
+}
+
+.article-item-1 h3 {
+    display: flex;
+    
+}
+
+
+.article-item-1 {
+    display: flex;
+    
+}
+
+.article-item-2 p {
+    display: flex;
+    width: 70%;
+    margin: auto;
+    
+    gap: 60px;
+    
+}
+
+.article-item-2 li {
+    display: flex;
+    
+    
+}
+
+.article-item-2 h3 {
+    display: flex;
+    
+}

@@ -46,23 +46,31 @@ const Category = () => {
         <h2>Articles de la catégorie : {categoryName}</h2>
         {underCategories.map((underCategory, index) => {
           
-          console.log(`Sous-catégorie ${underCategory.name} image_url:`, underCategory.image_url);
+          
           
           return (
             <li key={underCategory.id} className={`article-item-${index}`}>
               {/* Affichage de l'image si l'URL de l'image existe */}
+              <h3>{underCategory.name}</h3>
+              <p>{underCategory.description}
+              <Link to={`/category/${encodeURIComponent(categoryName)}/undercategory/${encodeURIComponent(underCategory.name)}/article`}>
+                Voir les articles
+              </Link>
               {underCategory.image_url && (
                 <img
                   src={underCategory.image_url}
                   alt={`Image de la sous-catégorie ${underCategory.name}`}
                   className="underCategory-image"
                 />
+                
               )}
-              <h3>{underCategory.name}</h3>
-              <p>{underCategory.description}</p>
-              <Link to={`/category/${encodeURIComponent(categoryName)}/undercategory/${encodeURIComponent(underCategory.name)}/article`}>
-                Voir les articles
-              </Link>
+             
+              </p>
+             
+             
+             
+             
+              
             </li>
           );
         })}
