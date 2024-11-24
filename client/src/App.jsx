@@ -9,13 +9,19 @@ import Undercategory from "./components/Undercategory.jsx";
 import Category from "./components/Category";
 import UndercategoryArticles from "./components/UndercategoryArticles";
 import NotFound from "./components/NotFound"; // Assurez-vous de créer ce composant
-import Image from "./components/Images.jsx";
+import Images from "./components/Images.jsx";
+import Apropos from "./components/Apropos.jsx";
+import Portfolio from "./components/Portfolio.jsx";
+import CV from "./components/CV.jsx";
 
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="/apropos" element={<Apropos />} />
+        <Route path="/portfolio" element={<Portfolio />} />
+        <Route path="/cv" element={<CV />} />
         <Route path="/" element={<Main />} />
         <Route path="/article" element={<Articles />} />
         <Route path="/comments/:articleId" element={<CommentsPage />} />
@@ -24,7 +30,7 @@ function App() {
         <Route path="/category/:categoryName" element={<Category />} />
         <Route path="/undercategory/:undercategoryName"element={<UndercategoryArticles />}/>
         <Route path="/category/:categoryName/undercategory/:undercategoryName/article" element={<UndercategoryArticles />} />
-        { <Route path="/image" element={<Image />} /> }
+        <Route path="/image" element={<Images />} /> 
         <Route path="/category/:categoryName" element={<Category />} />
         <Route path="*" element={<NotFound />} />
       </Routes>

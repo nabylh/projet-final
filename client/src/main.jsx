@@ -4,8 +4,11 @@ import App from "../src/App";
 import "../public/assets/styles/index.scss";
 import "../public/assets/styles/category.scss";
 import "../public/assets/styles/undercategoryArticles.scss";
-import "../public/assets/styles/articles.scss";
 import "../public/assets/styles/images.scss";
+import "../public/assets/styles/Apropos.scss";
+import "../public/assets/styles/Portfolio.scss"
+import "../public/assets/styles/CV.scss"
+import "../public/assets/styles/Article.scss";
 
 
 const rootElement = document.getElementById("root");

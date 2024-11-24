@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import Images from "./Images";
 
-const Categories = () => {
+const Articles = () => {
   const [categories, setCategories] = useState([]);
   const [loading, setLoading] = useState(true);
-  
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await fetch("http://localhost:3000/category"); // Remplace l'URL par celle pour récupérer les catégories
+        const response = await fetch("http://localhost:3000/category"); // URL pour récupérer les catégories
         if (!response.ok) {
           throw new Error("Erreur lors de la récupération des catégories");
         }
@@ -31,30 +31,34 @@ const Categories = () => {
   }
 
   return (
-    <ul>
-      {categories.map((category) => (
-        <li key={category.id} className="category-item">
-          <h2>{category.name}</h2>
-      {category.description}
-          <Link
-            to={`/category/${encodeURIComponent(category.name)}/`}
-            className="category-link"
-          >
-            Voir les articles
-          </Link>
-          
+    <section id="articles">
+      {/* Ajout des catégories */}
+      <div className="categories">
+        
+        <ul>
+          {categories.map((category) => (
+            <li key={category.id} className="category-item">
+              <h3>{category.name}</h3>
+              <p>{category.description}</p>
+              <Link
+                to={`/category/${encodeURIComponent(category.name)}/`}
+                className="category-link"
+              >
+                Voir les articles
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
 
-          
-         
-          
-        </li>
-      ))}
-    </ul>
+      
+      <div className="img">
+        
+      
+        <Images />
+      </div>
+    </section>
   );
 };
 
-
-
-
-
-export default Categories;
+export default Articles;

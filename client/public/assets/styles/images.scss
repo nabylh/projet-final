@@ -1,15 +1,5 @@
 
-#articles img {
-    max-width: auto;
-    margin: 0;
-    width: 70%;
-    border:0.1em, solid,white;
-    height:auto;
-    box-shadow: inset 0 -3em 3em rgba(0,0,0,0.1),
-  0 0  0 0.1em rgb(190, 190, 190),
-  0.3em 0.3em 1em rgba(0,0,0,0.3);
 
-}
 
 #articles .image-list {
     
@@ -17,6 +7,7 @@
     list-style: none;
     height: 100vh;
     margin: auto;
+    
 }
 
 

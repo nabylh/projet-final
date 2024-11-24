@@ -1,13 +1,13 @@
 import React from "react";
 
-const CV = () => {
+function MyCV() {
   return (
     <section id="mycv">
-      <a href="/client/public/CV.pdf" download="Mon_CV.pdf">
+      <a href="/public/CV.pdf" download>
         <h2>Télécharger mon CV</h2>
       </a>
     </section>
   );
-};
+}
 
-export default CV;
+export default MyCV;

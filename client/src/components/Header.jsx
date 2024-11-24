@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Header() {
   return (
@@ -96,16 +97,16 @@ function Header() {
 
           <ul>
             <li>
-              <a href="#apropos">A propos</a>
+            <Link to="/apropos">A propos</Link>
             </li>
             <li>
-              <a href="#portfolio">Portfolio</a>
+            <Link to="/portfolio">Portfolio</Link>
             </li>
             <li>
-              <a href="#mycv">Mon CV</a>
+            <Link to="/CV">CV</Link>
             </li>
             <li>
-              <a href="#articles">Articles</a>
+            <Link to="/article">Article</Link>
             </li>
             <li>
               <a href="#contact">Contact</a>
