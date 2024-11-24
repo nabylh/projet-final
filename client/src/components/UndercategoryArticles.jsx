@@ -52,8 +52,13 @@ const UndercategoryArticles = () => {
     console.log("Article en cours de traitement :", article); // Ajoutez ce log
     return (
       <li key={article.id}>
-        <h2>{article.title}</h2>
-        <p>{article.content}</p>
+        
+        <p><h2>{article.title}</h2>{article.content} <small>
+          Publié le : {new Date(article.created_at).toLocaleDateString()}
+        </small>
+        <Link to={`/comments/${article.id}`} className="comments-link">
+          Voir les commentaires
+        </Link></p>
         {/* Vérifie si une image est disponible pour l'article */}
         {article.image_url ? (
           <img
@@ -64,12 +69,7 @@ const UndercategoryArticles = () => {
         ) : (
           <p>Aucune image disponible.</p>
         )}
-        <small>
-          Publié le : {new Date(article.created_at).toLocaleDateString()}
-        </small>
-        <Link to={`/comments/${article.id}`} className="comments-link">
-          Voir les commentaires
-        </Link>
+      
       </li>
     );
   })}
