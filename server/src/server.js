@@ -25,6 +25,8 @@ app.use(
     })
 );
 
+
+
 // Configuration des sessions
 app.use(
     session({
@@ -48,6 +50,8 @@ app.use(
 
 // Middleware pour servir des fichiers statiques
 app.use("/images", express.static(path.join(process.cwd(), "public/images"))); // Servir les images
+// contact 
+
 
 app.use(express.json()); // Middleware pour parser le JSON
 app.use(express.urlencoded({ extended: false })); // Middleware pour parser les données URL-encodées

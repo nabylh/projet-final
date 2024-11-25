@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import DOMPurify from 'dompurify';
 
 function Contact() {
   const [formData, setFormData] = useState({
@@ -15,12 +16,19 @@ function Contact() {
 
   const [sentMessage, setSentMessage] = useState("");
 
+  // Fonction pour nettoyer l'entrée utilisateur avec DOMPurify
+  const sanitizeInput = (input) => {
+    return DOMPurify.sanitize(input);  // Utiliser DOMPurify pour désinfecter les entrées
+  };
+
+  // Gestion des changements d'input
   const handleChange = (event) => {
     const { name, value } = event.target;
+    const sanitizedValue = sanitizeInput(value);  // Appliquer la sanitisation
 
     setFormData((prevData) => ({
       ...prevData,
-      [name]: value,
+      [name]: sanitizedValue, // Appliquer la sanitisation directement ici
     }));
 
     setErrors((prevErrors) => ({
@@ -29,12 +37,14 @@ function Contact() {
     }));
   };
 
+  // Gestion de la soumission du formulaire
   const handleSubmit = (event) => {
     event.preventDefault();
     let valid = true;
 
     const newErrors = {};
 
+    // Validation des champs
     if (!formData.name.trim()) {
       newErrors.nameError = "Le champ nom est obligatoire.";
       valid = false;
@@ -58,7 +68,18 @@ function Contact() {
       return;
     }
 
-    setSentMessage("Votre message a bien été envoyé !");
+    // Simulation de l'envoi du message et affichage de la réponse en JSON dans la console
+    const response = {
+      status: "success",
+      message: "Votre message a bien été envoyé !",
+      data: formData,
+    };
+
+    // Affichage de la réponse dans la console
+    console.log("Réponse du serveur :", JSON.stringify(response, null, 2));
+
+    // Mise à jour de l'état pour afficher un message de succès
+    setSentMessage(response.message);
     setFormData({ email: "", name: "", msg: "" });
   };
 
