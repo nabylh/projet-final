@@ -1,12 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import capture2 from "/assets/images/capture2.png";
-// import LogoCSS from "/assets/images/LogoCSS.png";
-// import LogoJavaScript from "/assets/images/LogoJavaScript.png";
-// import LogoSQL from "/assets/images/LogoSQL.png";
-// import LogoNode from "/assets/images/LogoNode.png";
-// import GreyGeometricalShapesBackground from "/assets/images/GreyGeometricalShapesBackground.webp";
-// import BlackWhiteBackground from "/assets/images/BlackWhiteBackground.webp";
-// import laptop from "/assets/images/laptop.jpg";
 import Articles from "./Articles";
 import Images from "./Images";
 import Categories from "./Articles";
@@ -112,9 +104,9 @@ function Main() {
           </a>
         </section>
 
-        <section id="articles">
+        <section id="main-articles">
           <Categories/>
-          <Images />
+         
         </section>
        
        
