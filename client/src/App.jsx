@@ -8,21 +8,23 @@ import CommentsPage from "./components/CommentsPage";
 import Undercategory from "./components/Undercategory.jsx";
 import Category from "./components/Category";
 import UndercategoryArticles from "./components/UndercategoryArticles";
-import NotFound from "./components/NotFound"; // Assurez-vous de créer ce composant
+import NotFound from "./components/NotFound"; 
 import Images from "./components/Images.jsx";
 import Apropos from "./components/Apropos.jsx";
 import Portfolio from "./components/Portfolio.jsx";
 import CV from "./components/CV.jsx";
+import Contact from "./components/Contact.jsx";
 
 function App() {
   return (
     <Router>
       <Header />
       <Routes>
+        <Route path="/" element={<Main />} />
         <Route path="/apropos" element={<Apropos />} />
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/cv" element={<CV />} />
-        <Route path="/" element={<Main />} />
+        <Route path="/contact" element={<Contact />} />
         <Route path="/article" element={<Articles />} />
         <Route path="/comments/:articleId" element={<CommentsPage />} />
         <Route path="/undercategory" element={<Undercategory />} />

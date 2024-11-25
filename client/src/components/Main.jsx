@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Articles from "./Articles";
 import Images from "./Images";
 import Categories from "./Articles";
+import Contact from "./Contact";
 
 function Main() {
   const [article, setArticle] = useState(null);
@@ -106,9 +107,11 @@ function Main() {
 
         <section id="main-articles">
           <Categories/>
+          
          
         </section>
-       
+        <Contact/>
+     
        
         
       </main>
