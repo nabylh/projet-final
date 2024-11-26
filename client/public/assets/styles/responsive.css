@@ -160,7 +160,7 @@ header nav ul li a {
   color: black;
 }
 
-header nav a {
+/* header nav a {
   transition: padding 2s ease, background-color 2s ease, color 2s ease;
 }
 
@@ -175,7 +175,7 @@ header nav a:hover {
   font-family: "Roboto", system-ui;
   font-weight: 100;
   font-style: normal;
-}
+} */
 
 /* SEARCH BAR */
 nav .search-barre {
