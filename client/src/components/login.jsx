@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom"; // Import de useNavigate pour la redirection
 
 const Login = () => {
-  const [pseudo, setPseudo] = useState("");
+  const [identifier, setIdentifier] = useState(""); // Le champ unique pour l'email ou pseudo
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
   const navigate = useNavigate(); // Hook de navigation
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log("Identifier:", identifier); // Affiche l'identifiant
+  console.log("Password:", password);
 
     try {
       const response = await fetch("http://localhost:3000/user", {
@@ -17,24 +19,28 @@ const Login = () => {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          pseudo,
+          identifier,  // On envoie l'email ou pseudo
           password,
         }),
         credentials: "include",
       });
 
+      // On récupère la réponse JSON après avoir reçu la réponse du serveur
+      const data = await response.json();
+
+      // Affichage de 'data' dans la console une fois qu'il est défini
+      console.log(data);
+
       if (!response.ok) {
         throw new Error("Échec de la connexion");
       }
-
-      const data = await response.json();
 
       // Vérifie la réponse du serveur
       if (data.message === "Connexion réussie") {
         console.log("Utilisateur connecté avec succès", data);
 
         // Stockage du pseudo dans le localStorage ou dans un état global
-        localStorage.setItem("pseudo", pseudo); // Stockage du pseudo
+        localStorage.setItem("pseudo", data.user.pseudo); // Stockage du pseudo
 
         // Redirection vers la page principale
         navigate("/"); // Redirection à la page principale
@@ -53,14 +59,14 @@ const Login = () => {
         <h2>Connexion</h2>
 
         <div className="form-group">
-          <label htmlFor="pseudo">Pseudo</label>
+          <label htmlFor="identifier">Pseudo ou Email</label>
           <input
             type="text"
-            id="pseudo"
-            name="pseudo"
-            placeholder="Entrez votre pseudo"
-            value={pseudo}
-            onChange={(e) => setPseudo(e.target.value)}
+            id="identifier"
+            name="identifier"
+            placeholder="Entrez votre pseudo ou email"
+            value={identifier}
+            onChange={(e) => setIdentifier(e.target.value)}
             required
           />
         </div>

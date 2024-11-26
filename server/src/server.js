@@ -64,18 +64,24 @@ app.use(
 
 // Exemple d'authentification (lorsque l'utilisateur se connecte)
 app.post("/user", async (req, res) => {
-    // Vérification que req.body contient bien les données attendues
-    if (!req.body || !req.body.pseudo || !req.body.password) {
-        return res.status(400).json({ message: "Pseudo ou mot de passe manquant" });
+    const { identifier, password } = req.body;
+
+    if (!identifier || !password) {
+        return res.status(400).json({ message: "Pseudo/Email ou mot de passe manquant" });
     }
 
-    const { pseudo, password } = req.body;
-    try {
-        // Interroger la base de données
-        const [[user]] = await pool.promise().query("SELECT * FROM user WHERE pseudo = ?", [pseudo]);
+    console.log("Reçu :", req.body);
 
+    try {
+        // Construire la requête pour rechercher l'utilisateur par pseudo ou email
+        const [[user]] = await pool.promise().query(
+            "SELECT * FROM user WHERE (pseudo = ? OR email = ?)",
+            [identifier, identifier] // Utilisation de `identifier` pour pseudo ou email
+        );
+
+        // Vérifier si l'utilisateur existe et si le mot de passe correspond
         if (user && user.password === password) {
-            req.session.user = { id: user.id, pseudo: user.pseudo }; // Crée la session pour l'utilisateur connecté
+            req.session.user = { id: user.id, pseudo: user.pseudo, email: user.email }; // Crée la session
             return res.json({ message: "Connexion réussie", user: req.session.user });
         }
 
@@ -85,6 +91,8 @@ app.post("/user", async (req, res) => {
         return res.status(500).json({ message: "Erreur serveur" });
     }
 });
+
+
 
 // Middleware pour servir des fichiers statiques
 app.use("/images", express.static(path.join(process.cwd(), "public/images"))); // Servir les images

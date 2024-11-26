@@ -2,6 +2,7 @@
 import pool from "../config/db.js";
 
 class User {
+    // Retourne tous les utilisateurs
     static async findAll() {
         try {
             const [rows] = await pool.query("SELECT id, pseudo, email, role, created_at, status FROM user");
@@ -11,6 +12,7 @@ class User {
         }
     }
 
+    // Retourne un utilisateur par son ID
     static async findById(id) {
         try {
             const [rows] = await pool.query("SELECT id, pseudo, email, role, created_at, status FROM user WHERE id = ?", [id]);
@@ -20,6 +22,7 @@ class User {
         }
     }
 
+    // Retourne un utilisateur par son email
     static async findByEmail(email) {
         try {
             const [rows] = await pool.query("SELECT * FROM user WHERE email = ?", [email]);
@@ -29,6 +32,20 @@ class User {
         }
     }
 
+    // Recherche un utilisateur par son pseudo ou email
+    static async findByIdentifier(identifier) {
+        try {
+            const [rows] = await pool.query(
+                "SELECT * FROM user WHERE pseudo = ? OR email = ?", 
+                [identifier, identifier]  // identifier peut être un pseudo ou un email
+            );
+            return rows[0];  // Retourne l'utilisateur trouvé (s'il existe)
+        } catch (error) {
+            throw new Error(`Error fetching user by identifier: ${error.message}`);
+        }
+    }
+
+    // Crée un utilisateur
     static async create({ pseudo, email, password, role = 'user' }) {
         try {
             const [result] = await pool.query(
@@ -41,6 +58,7 @@ class User {
         }
     }
 
+    // Met à jour les informations d'un utilisateur
     static async update({ pseudo, email, role, status }, id) {
         try {
             await pool.query(
@@ -53,6 +71,7 @@ class User {
         }
     }
 
+    // Met à jour le mot de passe d'un utilisateur
     static async updatePassword(password, id) {
         try {
             await pool.query("UPDATE user SET password = ? WHERE id = ?", [password, id]);
@@ -62,6 +81,7 @@ class User {
         }
     }
 
+    // Supprime un utilisateur
     static async remove(id) {
         try {
             await pool.query("DELETE FROM user WHERE id = ?", [id]);
