@@ -4,7 +4,7 @@ const router = express.Router();
 
 
 router.get('/', async (req, res) => {
-  const query = 'SELECT id, pseudo, email, role, created_at, status FROM user'; 
+  const query = ('SELECT * FROM user'); 
   
   try {
     const [results] = await db.query(query); 
@@ -15,3 +15,5 @@ router.get('/', async (req, res) => {
 });
 
 export default router;
+
+

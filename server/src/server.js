@@ -5,15 +5,19 @@ import cors from "cors";
 import session from "express-session"; 
 
 import { createRequire } from "module"; 
+import mysql from "mysql2"; // Importation du module mysql2
 const require = createRequire(import.meta.url);
 const MySQLStore = require("express-mysql-session")(session); 
 
 import router from "./routes/index.routes.js"; 
 
-
 const app = express(); 
 
 const PORT = process.env.PORT || 3000; 
+
+// Middleware pour parser les données JSON et URL-encodées (placer avant les routes)
+app.use(express.json()); // Middleware pour parser le JSON
+app.use(express.urlencoded({ extended: false })); // Middleware pour parser les données URL-encodées
 
 // Configuration de CORS
 app.use(
@@ -25,7 +29,17 @@ app.use(
     })
 );
 
-
+// Configuration du pool de connexions MySQL
+const pool = mysql.createPool({
+    host: process.env.DB_HOST,
+    port: process.env.DB_PORT,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS,
+    database: process.env.DB_NAME,
+    waitForConnections: true,
+    connectionLimit: 10,  // Limite de connexions simultanées
+    queueLimit: 0
+});
 
 // Configuration des sessions
 app.use(
@@ -48,34 +62,52 @@ app.use(
     })
 );
 
+// Exemple d'authentification (lorsque l'utilisateur se connecte)
+app.post("/user", async (req, res) => {
+    // Vérification que req.body contient bien les données attendues
+    if (!req.body || !req.body.pseudo || !req.body.password) {
+        return res.status(400).json({ message: "Pseudo ou mot de passe manquant" });
+    }
+
+    const { pseudo, password } = req.body;
+    try {
+        // Interroger la base de données
+        const [[user]] = await pool.promise().query("SELECT * FROM user WHERE pseudo = ?", [pseudo]);
+
+        if (user && user.password === password) {
+            req.session.user = { id: user.id, pseudo: user.pseudo }; // Crée la session pour l'utilisateur connecté
+            return res.json({ message: "Connexion réussie", user: req.session.user });
+        }
+
+        return res.status(401).json({ message: "Identifiants incorrects" });
+    } catch (err) {
+        console.error("Erreur lors de l'authentification :", err);
+        return res.status(500).json({ message: "Erreur serveur" });
+    }
+});
+
 // Middleware pour servir des fichiers statiques
 app.use("/images", express.static(path.join(process.cwd(), "public/images"))); // Servir les images
-// contact 
-
-
-app.use(express.json()); // Middleware pour parser le JSON
-app.use(express.urlencoded({ extended: false })); // Middleware pour parser les données URL-encodées
 
 // Middleware pour les requêtes entrantes (pour débogage, à supprimer en production)
-// app.use(async (req, res, next) => {
-//     console.log("user session", req.session.user);
-//     try {
-//         const [[result]] = await pool.query("SELECT COUNT(session_id) AS session FROM sessions");
-//         console.log("Active sessions:", result.session);
-//         console.log("User session:", req.session.user ? req.session : "No user session");
-//         next();
-//     } catch (err) {
-//         console.error("Error fetching sessions:", err.message);
-//         next(); // Continuer même en cas d'erreur
-//     }
-// });
+app.use(async (req, res, next) => {
+    console.log("user session", req.session.user);
+    try {
+        // Utilisation de `pool.query()` pour interroger la base de données
+        const [rows] = await pool.promise().query("SELECT COUNT(session_id) AS session FROM sessions");
+        console.log("Active sessions:", rows[0].session);  // Affiche le nombre de sessions actives
+        console.log("User session:", req.session.user ? req.session : "No user session");
+        next();
+    } catch (err) {
+        console.error("Error fetching sessions:", err.message);
+        next(); // Continuer même en cas d'erreur
+    }
+});
 
 // Utilisation des routes définies dans index.routes.js
 app.use('/', router); 
-
 
 // Démarrage du serveur
 app.listen(PORT, () =>
     console.log(`Server is running at http://localhost:${PORT}`)
 );
-

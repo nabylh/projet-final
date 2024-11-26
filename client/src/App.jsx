@@ -14,6 +14,7 @@ import Apropos from "./components/Apropos.jsx";
 import Portfolio from "./components/Portfolio.jsx";
 import CV from "./components/CV.jsx";
 import Contact from "./components/Contact.jsx";
+import Login from "./components/login.jsx";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <Route path="/portfolio" element={<Portfolio />} />
         <Route path="/cv" element={<CV />} />
         <Route path="/contact" element={<Contact />} />
+        <Route path="/login" element={<Login />} />
         <Route path="/article" element={<Articles />} />
         <Route path="/comments/:articleId" element={<CommentsPage />} />
         <Route path="/undercategory" element={<Undercategory />} />

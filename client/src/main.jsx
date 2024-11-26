@@ -10,6 +10,7 @@ import "../public/assets/styles/Portfolio.scss"
 import "../public/assets/styles/CV.scss"
 import "../public/assets/styles/Article.scss";
 import "../public/assets/styles/contact.scss"
+import "../public/assets/styles/login.scss"
 
 
 const rootElement = document.getElementById("root");
